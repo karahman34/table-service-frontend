@@ -10,6 +10,7 @@
 
 <script>
 import AdminLayout from '@/layouts/admin/Layout.vue'
+import AuthLayout from '@/layouts/auth/Layout.vue'
 import DefaultLayout from '@/layouts/default/Layout.vue'
 
 export default {
@@ -17,6 +18,7 @@ export default {
 
   components: {
     AdminLayout,
+    AuthLayout,
     DefaultLayout,
   },
 
