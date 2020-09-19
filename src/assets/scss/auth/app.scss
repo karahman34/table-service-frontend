@@ -1,0 +1,9 @@
+@import './variable';
+
+.v-application {
+  background-color: $background-color !important;
+}
+
+#main {
+  margin-top: 30px;
+}

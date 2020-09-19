@@ -1,9 +1,12 @@
 <template>
   <div>
-    <h1>Auth Logout</h1>
-
-    <!-- Slot -->
-    <slot />
+    <!-- Main -->
+    <v-main id="main">
+      <v-container>
+        <!-- Slot -->
+        <slot />
+      </v-container>
+    </v-main>
   </div>
 </template>
 
@@ -13,6 +16,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
+  @import '../../assets/scss/auth/app.scss';
 </style>
