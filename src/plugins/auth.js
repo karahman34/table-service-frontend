@@ -1,4 +1,5 @@
-import { removeToken, setToken } from './http'
+import authApi from '@/api/authApi'
+import { setToken } from './http'
 
 const vuex = {
   namespaced: true,
@@ -20,15 +21,73 @@ const vuex = {
       state.user = user
     },
   },
+
+  actions: {
+    async login({commit}, credentials) {
+      try {
+        const res = await authApi.login(credentials)
+        const {ok, data} = res.data
+  
+        if (ok) {
+          const {access_token, expired_in, type, user} = data 
+  
+          const token = `${type} ${access_token}`
+  
+          setToken(token, expired_in)
+  
+          commit('SET_USER', user)
+          commit('SET_TOKEN', token)
+          commit('SET_LOGGED_IN', true)
+  
+          return Promise.resolve(true)
+        }
+        
+        return Promise.reject(res)
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    },
+    async getUser({commit}) {
+      try {
+        const res = await authApi.me()
+        const {ok, data} = res.data
+  
+        if (ok) {
+          commit('SET_USER', data.user)
+          commit('SET_LOGGED_IN', true)
+  
+          return Promise.resolve(res)
+        }
+  
+        return Promise.reject(res)
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    },
+    async logout({commit}) {
+      try {
+        const res = await authApi.logout()
+        const {ok} = res.data
+  
+        if (ok) {
+          commit('SET_USER', null)
+          commit('SET_TOKEN', null)
+          commit('SET_LOGGED_IN', true)
+  
+          return Promise.resolve(res)
+        }
+  
+        return Promise.reject(res)
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    },
+  },
 }
 
 class Auth {
-  constructor(store, http, loginUrl, logoutUrl, userUrl) {
+  constructor(store) {
     this.store = store
-    this.http = http
-    this.loginUrl = loginUrl
-    this.logoutUrl = logoutUrl
-    this.userUrl = userUrl
   }
 
   get user() {
@@ -56,75 +115,23 @@ class Auth {
   }
 
   async login(credentials) {
-    try {
-      const res = await this.http.post(this.loginUrl, credentials)
-      const {ok, data} = res.data
-
-      if (ok) {
-        const {access_token, expired_in, type, user} = data 
-
-        const token = `${type} ${access_token}`
-
-        setToken(token, expired_in)
-
-        this.setUser(user)
-        this.setToken(token)
-        this.setLoggedIn(true)
-
-        return Promise.resolve(true)
-      }
-      
-      return Promise.reject(res)
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    return this.store.dispatch('auth/login', credentials)
   }
 
   async getUser() {
-    try {
-      const res = await this.http.get(this.userUrl)
-      const {ok, data} = res.data
-
-      if (ok) {
-        this.setUser(data.user)
-        this.setLoggedIn(true)
-
-        return Promise.resolve(true)
-      }
-
-      return Promise.reject(res)
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    return this.store.dispatch('auth/getUser')
   }
 
   async logout() {
-    try {
-      const res = await this.http.post(this.logoutUrl)
-      const {ok} = res.data
-      
-      if (ok) {
-        removeToken()
-
-        this.setUser(null)
-        this.setToken(null)
-        this.setLoggedIn(false)
-
-        return Promise.resolve(true)
-      }
-
-      return Promise.reject(res)
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    return this.store.dispatch('auth/logout')
   }
 }
 
 const plugin = {
-  install: (Vue, {store, http, loginUrl, logoutUrl, userUrl}) => {
+  install: (Vue, {store}) => {
     store.registerModule('auth', vuex)
 
-    Vue.prototype.$auth = new Auth(store, http, loginUrl, logoutUrl, userUrl)
+    Vue.prototype.$auth = new Auth(store)
   },
 }
 
