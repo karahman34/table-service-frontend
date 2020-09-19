@@ -9,6 +9,7 @@ const routes = [
     meta: {
       title: 'Dashboard',
       layout: 'admin',
+      auth: true,
     },
     component: () => import('@/views/administrator/Home.vue'),
   },
@@ -18,6 +19,7 @@ const routes = [
     meta: {
       title: 'Login',
       layout: 'auth',
+      guest: true,
     },
     component: () => import('@/views/administrator/Login.vue'),
   },
