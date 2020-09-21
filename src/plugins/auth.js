@@ -72,7 +72,7 @@ const vuex = {
         if (ok) {
           commit('SET_USER', null)
           commit('SET_TOKEN', null)
-          commit('SET_LOGGED_IN', true)
+          commit('SET_LOGGED_IN', false)
   
           return Promise.resolve(res)
         }

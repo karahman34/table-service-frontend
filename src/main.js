@@ -32,41 +32,44 @@ async function initial() {
         setToken(token)
 
         // Get user
-        const res = await store.dispatch('auth/getUser')
-        const {ok} = res.data
-
-        if (!ok) removeToken()
+        try {
+          await store.dispatch('auth/getUser')
+        } catch (err) {
+          removeToken()
+        }
       }
     }
   }
   
   await checkTokenAndUser()
-
-  router.beforeEach((to, from, next) => {
-    const guest = to.meta?.guest
-    if (guest && store.state.auth.loggedIn) {
-      return next({
-        name: 'administrator.home',
-      })
-    }
-
-    const auth = to.meta?.auth
-    if (auth && !store.state.auth.loggedIn) {
-      return next({
-        name: 'administrator.login',
-      })
-    }
-
-    // Set doc title
-    setTitle(to.meta)
-    
-    // Next
-    next()
-  })
 }
 
 initial()
   .then(() => {
+    // Router Nav Guard
+    router.beforeEach((to, from, next) => {
+      const guest = to.meta?.guest
+      if (guest && store.state.auth.loggedIn) {
+        return next({
+          name: 'administrator.home',
+        })
+      }
+  
+      const auth = to.meta?.auth
+      if (auth && !store.state.auth.loggedIn) {
+        return next({
+          name: 'administrator.login',
+        })
+      }
+  
+      // Set doc title
+      setTitle(to.meta)
+      
+      // Next
+      next()
+    })
+
+    // Initiate Vue App
     new Vue({
       router,
       store,
