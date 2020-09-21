@@ -1,11 +1,11 @@
 <template>
-  <v-app>
+  <div>
     <!-- Layout -->
     <component :is="layout">
       <!-- Router View -->
       <router-view />
     </component>
-  </v-app>
+  </div>
 </template>
 
 <script>

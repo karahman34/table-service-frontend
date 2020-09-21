@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app>
     <!-- Main -->
     <v-main id="main">
       <v-container>
@@ -7,7 +7,7 @@
         <slot />
       </v-container>
     </v-main>
-  </div>
+  </v-app>
 </template>
 
 <script>
