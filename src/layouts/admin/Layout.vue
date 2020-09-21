@@ -48,7 +48,7 @@
 <script>
 import TopNav from './TopNav.vue'
 import LeftNav from './LeftNav.vue'
-import Overlay from './Overlay.vue'
+import Overlay from '@/components/Overlay.vue'
 
 export default {
   components: {
