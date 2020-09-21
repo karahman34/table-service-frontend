@@ -15,6 +15,9 @@
       <overlay />
 
       <v-container class="px-5">
+        <!-- Alert -->
+        <alert />
+
         <!-- Bread Crumbs -->
         <v-breadcrumbs
           :items="segments"
@@ -49,12 +52,14 @@
 import TopNav from './TopNav.vue'
 import LeftNav from './LeftNav.vue'
 import Overlay from '@/components/Overlay.vue'
+import Alert from '@/components/Alert.vue'
 
 export default {
   components: {
     TopNav,
     LeftNav,
     Overlay,
+    Alert,
   },
 
   data: () => ({

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import { setTitle } from './helpers/router'
+import alertPlugin from './plugins/alert'
 import authPlugin from './plugins/auth'
 import httpPlugin, { expiredName, removeToken, setToken, tokenName } from './plugins/http'
 import overlayPlugin from './plugins/overlay'
@@ -17,6 +18,9 @@ Vue.use(authPlugin, {
   store,
 })
 Vue.use(overlayPlugin, {
+  store,
+})
+Vue.use(alertPlugin, {
   store,
 })
 
