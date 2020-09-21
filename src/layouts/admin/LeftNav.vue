@@ -28,7 +28,7 @@
 
     <!-- Logout -->
     <template v-slot:append>
-      <div class="pa-4">
+      <div class="px-3 py-4">
         <v-btn
           id="logout-btn"
           block
@@ -79,6 +79,8 @@ export default {
   methods: {
     async logout() {
       try {
+        this.$overlay.show()
+
         await this.$auth.logout()
 
         this.$router.push({
@@ -86,6 +88,8 @@ export default {
         })
       } catch (err) {
         alert('Failed to loggout user.')
+      } finally {
+        this.$overlay.close()
       }
     },
   },
