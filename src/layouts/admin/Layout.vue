@@ -11,6 +11,9 @@
 
     <!-- Main Content -->
     <v-main>
+      <!-- Overlay -->
+      <overlay />
+
       <v-container class="px-5">
         <!-- Bread Crumbs -->
         <v-breadcrumbs
@@ -45,11 +48,13 @@
 <script>
 import TopNav from './TopNav.vue'
 import LeftNav from './LeftNav.vue'
+import Overlay from './Overlay.vue'
 
 export default {
   components: {
     TopNav,
     LeftNav,
+    Overlay,
   },
 
   data: () => ({

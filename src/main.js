@@ -3,6 +3,7 @@ import App from './App.vue'
 import { setTitle } from './helpers/router'
 import authPlugin from './plugins/auth'
 import httpPlugin, { expiredName, removeToken, setToken, tokenName } from './plugins/http'
+import overlayPlugin from './plugins/overlay'
 import vuetify from './plugins/vuetify'
 import router from './router'
 import store from './store'
@@ -13,6 +14,9 @@ Vue.config.productionTip = false
 // Use plugins
 Vue.use(httpPlugin)
 Vue.use(authPlugin, {
+  store,
+})
+Vue.use(overlayPlugin, {
   store,
 })
 
