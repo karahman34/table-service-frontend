@@ -32,13 +32,13 @@
             color="grey lighten-2"
             @click="closeDialog"
           >
-            Cancel
+            <v-icon>mdi mdi-close-circle</v-icon>
+            <span class="ml-1">Cancel</span>
           </v-btn>
 
           <v-btn
             dark
-            class="ml-2"
-            color="deleteButton"
+            class="ml-3 delete-button"
             :loading="loading"
             @click.native="deleteFood"
           >
@@ -97,3 +97,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.delete-button:hover {
+  background-color: #FF5252 !important;
+}
+</style>
