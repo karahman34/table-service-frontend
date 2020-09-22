@@ -5,7 +5,7 @@
     hide-details
     placeholder="Search..."
     prepend-inner-icon="mdi mdi-magnify"
-    class="mb-2"
+    class="mb-2 pt-0"
     :loading="loading"
   />
 </template>
