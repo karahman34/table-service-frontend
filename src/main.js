@@ -69,6 +69,32 @@ initial()
           name: 'administrator.login',
         })
       }
+
+      const permissions = to.meta?.permissions
+      if (permissions) {
+        const userPermissions = store.state.auth.user.permissions
+
+        for (const permission of permissions) {
+          if (!userPermissions.includes(permission)) {
+            next({
+              name: 'forbidden',
+            })
+          }
+        }
+      }
+
+      const roles = to.meta?.roles
+      if (roles) {
+        const userRoles = store.state.auth.user.roles
+
+        for (const role of roles) {
+          if (!userRoles.includes(role)) {
+            next({
+              name: 'forbidden',
+            })
+          }
+        }
+      }
   
       // Set doc title
       setTitle(to.meta)

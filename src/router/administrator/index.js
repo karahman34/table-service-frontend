@@ -30,6 +30,7 @@ const routes = [
       title: 'Foods',
       layout: 'admin',
       auth: true,
+      permissions: ['food.index'],
     },
     component: () => import('@/views/administrator/Foods.vue'),
   },
