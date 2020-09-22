@@ -12,6 +12,7 @@
 import AdminLayout from '@/layouts/admin/Layout.vue'
 import AuthLayout from '@/layouts/auth/Layout.vue'
 import DefaultLayout from '@/layouts/default/Layout.vue'
+import ErrorLayout from '@/layouts/error/Layout.vue'
 
 export default {
   name: 'App',
@@ -20,6 +21,7 @@ export default {
     AdminLayout,
     AuthLayout,
     DefaultLayout,
+    ErrorLayout,
   },
 
   data: () => ({

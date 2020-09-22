@@ -12,6 +12,23 @@ const routes = [
     component: Home,
   },
   ...administrator,
+  {
+    path: '/forbidden',
+    name: 'forbidden',
+    meta: {
+      title: 'Forbidden',
+      layout: 'error',
+    },
+    component: () => import('@/views/Forbidden.vue'),
+  },
+  {
+    path: '*',
+    meta: {
+      title: 'Page not found',
+      layout: 'error',
+    },
+    component: () => import('@/views/PageNotFound.vue'),
+  },
 ]
 
 const router = new VueRouter({
