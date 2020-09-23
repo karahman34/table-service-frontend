@@ -114,6 +114,22 @@ class Auth {
     this.store.commit('auth/SET_LOGGED_IN', val)
   }
 
+  can(permissions) {
+    const userPermissions = this.store.state.auth.user.permissions
+    
+    if (!Array.isArray(permissions)) {
+      return userPermissions.includes(permissions)
+    } else {
+      for (const permission of permissions) {
+        if (!userPermissions.includes(permission)) {
+          return false
+        }
+      }
+
+      return true
+    }
+  }
+
   async login(credentials) {
     return this.store.dispatch('auth/login', credentials)
   }
