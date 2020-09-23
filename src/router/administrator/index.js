@@ -41,7 +41,7 @@ const routes = [
       title: 'Users',
       layout: 'admin',
       auth: true,
-      permissions: ['food.index'],
+      permissions: ['user.index'],
     },
     component: () => import('@/views/administrator/Users.vue'),
   },
