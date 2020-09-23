@@ -56,6 +56,17 @@ const routes = [
     },
     component: () => import('@/views/administrator/Roles.vue'),
   },
+  {
+    path: '/permissions',
+    name: 'permissions',
+    meta: {
+      title: 'Permissions',
+      layout: 'admin',
+      auth: true,
+      permissions: ['permission.index'],
+    },
+    component: () => import('@/views/administrator/Permissions.vue'),
+  },
 ]
 
 export default formatRoutes(pathPrefix, namePrefix, routes)

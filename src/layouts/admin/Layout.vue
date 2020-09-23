@@ -84,6 +84,11 @@ export default {
         name: 'administrator.roles',
         icon: 'mdi mdi-account-details',
       },
+      {
+        text: 'Permissions',
+        name: 'administrator.permissions',
+        icon: 'mdi mdi-sort-variant-lock',
+      },
     ],
     sideBar: null,
   }),
