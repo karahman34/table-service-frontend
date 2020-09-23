@@ -176,7 +176,7 @@ export default {
     syncPermissionsDialog(val) {
       if (val) return
 
-      this.roles = []
+      this.permissions = []
       this.selectedPermissions = []
       this.focusItem = null
     },
