@@ -78,6 +78,17 @@ const routes = [
     },
     component: () => import('@/views/administrator/Categories.vue'),
   },
+  {
+    path: '/transactions',
+    name: 'transactions',
+    meta: {
+      title: 'Transaction',
+      layout: 'admin',
+      auth: true,
+      permissions: ['transaction.index'],
+    },
+    component: () => import('@/views/administrator/Transactions.vue'),
+  },
 ]
 
 export default formatRoutes(pathPrefix, namePrefix, routes)

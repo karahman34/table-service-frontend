@@ -80,6 +80,11 @@ export default {
         icon: 'mdi mdi-tag-multiple',
       },
       {
+        text: 'Transactions',
+        name: 'administrator.transactions',
+        icon: 'mdi mdi-cash',
+      },
+      {
         text: 'Users',
         name: 'administrator.users',
         icon: 'mdi mdi-account-group',
