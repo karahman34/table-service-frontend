@@ -75,6 +75,11 @@ export default {
         icon: 'mdi mdi-food-fork-drink',
       },
       {
+        text: 'Categories',
+        name: 'administrator.categories',
+        icon: 'mdi mdi-tag-multiple',
+      },
+      {
         text: 'Users',
         name: 'administrator.users',
         icon: 'mdi mdi-account-group',
