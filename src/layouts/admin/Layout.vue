@@ -74,6 +74,11 @@ export default {
         name: 'administrator.foods',
         icon: 'mdi mdi-food-fork-drink',
       },
+      {
+        text: 'Users',
+        name: 'administrator.users',
+        icon: 'mdi mdi-account-group',
+      },
     ],
     sideBar: null,
   }),

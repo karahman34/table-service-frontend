@@ -34,6 +34,17 @@ const routes = [
     },
     component: () => import('@/views/administrator/Foods.vue'),
   },
+  {
+    path: '/users',
+    name: 'users',
+    meta: {
+      title: 'Users',
+      layout: 'admin',
+      auth: true,
+      permissions: ['food.index'],
+    },
+    component: () => import('@/views/administrator/Users.vue'),
+  },
 ]
 
 export default formatRoutes(pathPrefix, namePrefix, routes)
