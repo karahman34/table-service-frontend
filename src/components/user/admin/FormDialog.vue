@@ -103,6 +103,8 @@ export default {
       }
     },
     formSubmit() {
+      this.loading = true
+
       const payload = this.form
       if (this.user) payload._method = 'PATCH'
       if (payload.password === null || payload.password == '') delete payload.password
