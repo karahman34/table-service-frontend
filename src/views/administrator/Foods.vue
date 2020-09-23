@@ -9,6 +9,7 @@
         </div>
 
         <create-btn
+          v-if="$auth.can('user.create')"
           text="food"
           @click.native="formDialog = true"
         />
@@ -51,11 +52,22 @@
 
           <!-- Actions -->
           <template v-slot:[`item.actions`]="{item}">
+            <span
+              v-if="!$auth.can('food.update') && !$auth.can('food.delete')"
+              class="grey--text"
+            >No actions available.</span>
+
             <!-- Edit Button -->
-            <edit-btn @click="editItem(item)" />
+            <edit-btn
+              v-if="$auth.can('food.update')"
+              @click="editItem(item)"
+            />
 
             <!-- Delete Button -->
-            <delete-btn @click="deleteItem(item)" />
+            <delete-btn
+              v-if="$auth.can('food.delete')"
+              @click="deleteItem(item)"
+            />
           </template>
         </v-data-table>
       </v-card-text>
