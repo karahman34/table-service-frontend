@@ -102,7 +102,7 @@
 
     <!-- Sync Roles -->
     <sync-roles-dialog
-      v-if="syncRolesDialog && focusItem && selectedRoles.length"
+      v-if="syncRolesDialog && focusItem && selectedRoles !== null"
       :items.sync="selectedRoles"
       :options.sync="roles"
       :loading="syncRolesLoading"
@@ -165,7 +165,7 @@ export default {
       syncRolesDialog: false,
       syncRolesLoading: false,
       roles: [],
-      selectedRoles: [],
+      selectedRoles: null,
     }
   },
 
