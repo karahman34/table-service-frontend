@@ -79,6 +79,11 @@ export default {
         name: 'administrator.users',
         icon: 'mdi mdi-account-group',
       },
+      {
+        text: 'Roles',
+        name: 'administrator.roles',
+        icon: 'mdi mdi-account-details',
+      },
     ],
     sideBar: null,
   }),

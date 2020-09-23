@@ -45,6 +45,17 @@ const routes = [
     },
     component: () => import('@/views/administrator/Users.vue'),
   },
+  {
+    path: '/roles',
+    name: 'roles',
+    meta: {
+      title: 'Roles',
+      layout: 'admin',
+      auth: true,
+      permissions: ['role.index'],
+    },
+    component: () => import('@/views/administrator/Roles.vue'),
+  },
 ]
 
 export default formatRoutes(pathPrefix, namePrefix, routes)
