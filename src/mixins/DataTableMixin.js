@@ -87,8 +87,13 @@ export default {
         const res = await this.dataTableAction(this.query)
         const {ok, data, meta} = res.data
 
-        if (ok) {
-          this.items = data
+        if (!ok) {
+          throw new Error
+        }
+
+        this.items = data
+        
+        if (this.itemsPerPage > 0) {
           this.lastPage = meta.last_page
           this.serverItemsLength = meta.total
         }
