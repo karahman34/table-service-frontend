@@ -71,7 +71,7 @@ const routes = [
     path: '/categories',
     name: 'categories',
     meta: {
-      title: 'Category',
+      title: 'Categories',
       layout: 'admin',
       auth: true,
       permissions: ['category.index'],
@@ -82,7 +82,7 @@ const routes = [
     path: '/transactions',
     name: 'transactions',
     meta: {
-      title: 'Transaction',
+      title: 'Transactions',
       layout: 'admin',
       auth: true,
       permissions: ['transaction.index'],
@@ -93,7 +93,7 @@ const routes = [
     path: '/orders',
     name: 'orders',
     meta: {
-      title: 'Order',
+      title: 'Orders',
       layout: 'admin',
       auth: true,
       permissions: ['order.index'],
