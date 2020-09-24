@@ -80,6 +80,11 @@ export default {
         icon: 'mdi mdi-tag-multiple',
       },
       {
+        text: 'Orders',
+        name: 'administrator.orders',
+        icon: 'mdi mdi-cart',
+      },
+      {
         text: 'Transactions',
         name: 'administrator.transactions',
         icon: 'mdi mdi-cash',

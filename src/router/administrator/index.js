@@ -89,6 +89,17 @@ const routes = [
     },
     component: () => import('@/views/administrator/Transactions.vue'),
   },
+  {
+    path: '/orders',
+    name: 'orders',
+    meta: {
+      title: 'Order',
+      layout: 'admin',
+      auth: true,
+      permissions: ['order.index'],
+    },
+    component: () => import('@/views/administrator/Orders.vue'),
+  },
 ]
 
 export default formatRoutes(pathPrefix, namePrefix, routes)
