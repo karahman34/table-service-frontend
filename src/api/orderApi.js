@@ -8,6 +8,9 @@ export default {
       params,
     })
   },
+  new() {
+    return http.get(`${prefix}/new`)
+  },
   create(payload) {
     return http.post(prefix, payload)
   },

@@ -1,18 +1,30 @@
 <template>
-  <div>
-    <h1>Default Layout</h1>
+  <v-app>
+    <!-- Main -->
+    <v-main>
+      <!-- The Overlay -->
+      <overlay />
 
-    <!-- Slot -->
-    <slot />
-  </div>
+      <!-- Container -->
+      <v-container>
+        <!-- Alert -->
+        <alert />
+
+        <!-- View -->
+        <router-view />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
+import Alert from '@/components/Alert.vue'
+import Overlay from '@/components/Overlay.vue'
+
 export default {
-        
+  components: {
+    Alert,
+    Overlay,
+  },
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
