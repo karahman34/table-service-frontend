@@ -24,21 +24,36 @@
         >
           <!-- Status -->
           <template v-slot:[`item.status`]="{item}">
-            <v-btn
+            <v-icon
               v-if="item.status.toLowerCase() === 'y'"
-              icon
               color="success"
             >
-              <v-icon>mdi mdi-check</v-icon>
-            </v-btn>
+              mdi mdi-check
+            </v-icon>
 
-            <v-btn
+            <v-icon
               v-else
-              icon
               color="error"
             >
-              <v-icon>mdi mdi-close</v-icon>
-            </v-btn>
+              mdi mdi-close
+            </v-icon>
+          </template>
+
+          <!-- Details Complete -->
+          <template v-slot:[`item.details_complete`]="{item}">
+            <v-icon
+              v-if="item.details_complete.toLowerCase() === 'y'"
+              color="success"
+            >
+              mdi mdi-check
+            </v-icon>
+
+            <v-icon
+              v-else
+              color="error"
+            >
+              mdi mdi-close
+            </v-icon>
           </template>
 
           <!-- Actions -->
@@ -138,6 +153,10 @@ export default {
         {
           text: 'Status',
           value: 'status',
+        },
+        {
+          text: 'Details Complete',
+          value: 'details_complete',
         },
         {
           text: 'Actions',
