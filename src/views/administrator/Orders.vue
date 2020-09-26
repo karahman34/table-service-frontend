@@ -147,8 +147,10 @@ export default {
           searchable: false,
         },
         {
-          text: 'Created At',
-          value: 'created_at',
+          text: 'Table Number',
+          value: 'table.number',
+          sortable: false,
+          searchable: false,
         },
         {
           text: 'Status',
@@ -157,6 +159,14 @@ export default {
         {
           text: 'Details Complete',
           value: 'details_complete',
+        },
+        {
+          text: 'Created At',
+          value: 'created_at',
+        },
+        {
+          text: 'Updated At',
+          value: 'updated_at',
         },
         {
           text: 'Actions',
