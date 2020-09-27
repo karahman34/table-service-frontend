@@ -19,19 +19,32 @@
         />
       </v-col>
     </v-row>
+
+    <!-- Second Row -->
+    <v-row>
+      <!-- Tables -->
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <tables />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
-import Banner from '@/components/admins/Banner.vue'
 import foodApi from '@/api/foodApi'
 import userApi from '@/api/userApi'
 import tableApi from '@/api/tableApi'
 import orderApi from '@/api/orderApi'
+import Banner from '@/components/admins/Banner.vue'
+import Tables from '@/components/tables/admin/List.vue'
 
 export default {
   components: {
     Banner,
+    Tables,
   },
 
   data() {
