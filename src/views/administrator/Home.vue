@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h2>Dashboard</h2>
+
     <!-- Banners -->
     <v-row>
       <v-col
@@ -21,7 +23,7 @@
     </v-row>
 
     <!-- Second Row -->
-    <v-row>
+    <v-row class="mt-6">
       <!-- Tables -->
       <v-col
         cols="12"
