@@ -10,6 +10,7 @@ const routes = [
       title: 'Dashboard',
       layout: 'admin',
       auth: true,
+      permissions: ['table.index', 'food.index', 'user.index'],
     },
     component: () => import('@/views/administrator/Home.vue'),
   },
