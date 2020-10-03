@@ -11,6 +11,9 @@ export default {
   create(payload) {
     return http.post(prefix, payload)
   },
+  setTable(payload) {
+    return http.post(`${prefix}/set-table`, payload)
+  },
   getOrder(id) {
     return http.get(`${prefix}/${id}/order` )
   },
