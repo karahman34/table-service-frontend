@@ -1,5 +1,8 @@
 <template>
   <v-app>
+    <!-- Navigation -->
+    <top-nav />
+
     <!-- Main -->
     <v-main>
       <!-- The Overlay -->
@@ -18,6 +21,7 @@
 </template>
 
 <script>
+import TopNav from '@/layouts/default/TopNav'
 import Alert from '@/components/Alert.vue'
 import Overlay from '@/components/Overlay.vue'
 
@@ -25,6 +29,7 @@ export default {
   components: {
     Alert,
     Overlay,
+    TopNav,
   },
 }
 </script>
