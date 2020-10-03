@@ -6,7 +6,11 @@
         lg="4"
       >
         <h1 class="mb-2 text-center">
-          Login Administrator
+          Login
+
+          <template v-if="type !== 'customer'">
+            Administrator
+          </template>
         </h1>
 
         <!-- The Card -->
@@ -78,6 +82,14 @@ export default {
     }
   },
 
+  computed: {
+    type() {
+      const type = this.$route.query?.type
+      
+      return type || null
+    },
+  },
+
   methods: {
     async goLogin() {
       // Clear errors
@@ -91,13 +103,15 @@ export default {
         // Login
         await this.$auth.login(this.form)
 
+        const defaultRedirect = this.type === 'customer'
+          ? '/'
+          : { name: 'administrator.home' }
+
         // Redirect user
         const redirect = this.$route.query?.redirect
         redirect
           ? this.$router.push(redirect)
-          : this.$router.push({
-            name: 'administrator.home',
-          })
+          : this.$router.push(defaultRedirect)
       } catch (err) {
         const status = err?.response?.status
 
