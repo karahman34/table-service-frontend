@@ -109,7 +109,7 @@ export default {
 
 @media screen and (min-width: 1264px) {
   #nav-top {
-    padding: 0 15%;
+    padding: 0 calc(15% - 16px);
   }
 }
 
