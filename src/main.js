@@ -56,43 +56,49 @@ initial()
   .then(() => {
     // Router Nav Guard
     router.beforeEach((to, from, next) => {
-      const guest = to.meta?.guest
+      const {guest, auth, permissions, roles} = to.meta
+
+      // Guest
       if (guest && store.state.auth.loggedIn) {
         return next({
           name: 'administrator.home',
         })
       }
   
-      const auth = to.meta?.auth
+      // Auth
       if (auth && !store.state.auth.loggedIn) {
+        const customer = to.meta?.customer
+        const query = {
+          redirect: to.fullPath,
+        }
+
+        if (customer) query.type = 'customer'
+
         return next({
+          query,
           name: 'administrator.login',
         })
       }
 
-      const permissions = to.meta?.permissions
+      // Permissions
       if (permissions) {
-        const userPermissions = store.state.auth.user.permissions
+        const redirectPath = { name: 'forbidden' }
+        const userPermissions = store.state.auth.user?.permissions
+        if (!userPermissions) return next(redirectPath)
 
         for (const permission of permissions) {
-          if (!userPermissions.includes(permission)) {
-            next({
-              name: 'forbidden',
-            })
-          }
+          if (!userPermissions.includes(permission)) return next(redirectPath)
         }
       }
 
-      const roles = to.meta?.roles
+      // Roles
       if (roles) {
-        const userRoles = store.state.auth.user.roles
+        const redirectPath = { name: 'forbidden' }
+        const userRoles = store.state.auth.user?.roles
+        if (!userRoles) return next(redirectPath)
 
         for (const role of roles) {
-          if (!userRoles.includes(role)) {
-            next({
-              name: 'forbidden',
-            })
-          }
+          if (!userRoles.includes(role)) return next(redirectPath)
         }
       }
   
