@@ -9,13 +9,16 @@
       <overlay />
 
       <!-- Container -->
-      <v-container>
+      <div
+        class="local-container"
+        style="margin: 30px 0;"
+      >
         <!-- Alert -->
         <alert />
 
         <!-- View -->
         <router-view />
-      </v-container>
+      </div>
     </v-main>
   </v-app>
 </template>
@@ -33,3 +36,7 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+  @import '../../assets/scss/default/app.scss';
+</style>

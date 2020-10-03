@@ -1,0 +1,9 @@
+.local-container {
+  padding: 0 5%;
+}
+
+@media screen and (min-width: 1264px) {
+  .local-container {
+    padding: 0 15%;
+  }
+}
