@@ -16,6 +16,16 @@ const routes = [
     },
     component: Home,
   },
+  {
+    path: '/search',
+    name: 'search',
+    meta: {
+      auth: true,
+      customer: true,
+      permissions: ['food.index'],
+    },
+    component: () => import('@/views/Search.vue'),
+  },
   ...administrator,
   {
     path: '/forbidden',
