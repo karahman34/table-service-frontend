@@ -9,6 +9,11 @@ const routes = [
   {
     path: '/',
     name: 'Home',
+    meta: {
+      auth: true,
+      customer: true,
+      permissions: ['food.index'],
+    },
     component: Home,
   },
   ...administrator,
