@@ -63,6 +63,17 @@
       </template>
 
       <v-list>
+        <!-- Set Table -->
+        <v-list-item
+          v-if="$auth.can('table.update')"
+          @click="setTable = true"
+        >
+          <v-list-item-title class="black--text">
+            <v-icon>mdi mdi-format-list-numbered</v-icon>
+            <span class="ml-2">Set Table</span>
+          </v-list-item-title>
+        </v-list-item>
+
         <!-- Logout -->
         <v-list-item @click="goLogout()">
           <v-list-item-title class="black--text">
@@ -72,13 +83,29 @@
         </v-list-item>
       </v-list>
     </v-menu>
+
+    <!-- Set Table -->
+    <set-table
+      v-if="setTable"
+      @close="setTable = false"
+    />
   </v-app-bar>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import SetTable from '@/components/table/SetDialog.vue'
 
 export default {
+  components: {
+    SetTable,
+  },
+
+  data() {
+    return {
+      setTable: false,
+    }
+  },
 
   computed: {
     ...mapState('cart', {
