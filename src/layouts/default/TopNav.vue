@@ -4,7 +4,12 @@
     app
   >
     <!-- Logo -->
-    <v-toolbar-title>Logo</v-toolbar-title>
+    <router-link
+      to="/"
+      class="text-decoration-none black--text"
+    >
+      <v-toolbar-title>Logo</v-toolbar-title>
+    </router-link>
 
     <v-spacer />
 
@@ -28,7 +33,10 @@
     <div class="divider" />
 
     <!-- Cart -->
-    <v-btn icon>
+    <v-btn
+      icon
+      to="/carts"
+    >
       <v-badge
         color="primary"
         :value="carts.length"
@@ -68,13 +76,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
+
   computed: {
+    ...mapState('cart', {
+      carts: state => state.items,
+    }),
     username() {
       return this.$auth.user?.username || null 
-    },
-    carts() {
-      return []
     },
   },
 
