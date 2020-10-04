@@ -18,9 +18,10 @@
 
         <!-- Loading -->
         <v-progress-circular
-          v-else
+          v-if="count == null"
           indeterminate
-          class="white--text"
+          size="26"
+          class="white--text mt-1"
         />
       </v-col>
 
