@@ -81,6 +81,7 @@ export default {
       this.getItems()
     },
     async getItems() {
+      this.items = []
       this.tableLoading = true
 
       try {
