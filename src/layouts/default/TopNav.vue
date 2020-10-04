@@ -14,21 +14,23 @@
     <v-spacer />
 
     <!-- Search -->
-    <router-link
+    <div
       id="nav-search-container"
-      to="/search"
       class="d-inline-block"
     >
-      <input
-        id="nav-search"
-        type="text"
-        placeholder="Search..."
-      >
+      <v-form @submit.prevent="goSearch">
+        <input
+          id="nav-search"
+          v-model="search"
+          type="text"
+          placeholder="Search..."
+        >
 
-      <v-icon id="nav-search-icon">
-        mdi mdi-magnify
-      </v-icon>
-    </router-link>
+        <v-icon id="nav-search-icon">
+          mdi mdi-magnify
+        </v-icon>
+      </v-form>
+    </div>
 
     <div class="divider" />
 
@@ -104,6 +106,7 @@ export default {
   data() {
     return {
       setTable: false,
+      search: null,
     }
   },
 
@@ -116,7 +119,24 @@ export default {
     },
   },
 
+  watch: {
+    '$route.query.search': function(val) {
+      this.search = val
+    },
+  },
+
   methods: {
+    goSearch() {
+      const currentPathQuery = this.$route.query
+      if (this.$route.name === 'search' && currentPathQuery?.search === this.search) return
+
+      this.$router.push({
+        name: 'search',
+        query: {
+          search: this.search,
+        },
+      })
+    },
     async goLogout() {
       this.$overlay.show()
       
