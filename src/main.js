@@ -56,27 +56,24 @@ initial()
   .then(() => {
     // Router Nav Guard
     router.beforeEach((to, from, next) => {
-      const {guest, auth, permissions, roles} = to.meta
+      const {guest, auth, permissions, roles, customer} = to.meta
 
       // Guest
       if (guest && store.state.auth.loggedIn) {
         return next({
-          name: 'administrator.home',
+          name: customer ? 'Home' : 'administrator.home',
         })
       }
   
       // Auth
       if (auth && !store.state.auth.loggedIn) {
-        const customer = to.meta?.customer
-        const query = {
-          redirect: to.fullPath,
-        }
-
-        if (customer) query.type = 'customer'
+        const namePath = customer ? 'login' : 'administrator.login'
 
         return next({
-          query,
-          name: 'administrator.login',
+          name: namePath,
+          query: {
+            redirect: to.fullPath,
+          },
         })
       }
 

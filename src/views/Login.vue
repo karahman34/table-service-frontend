@@ -6,7 +6,7 @@
         lg="4"
       >
         <h1 class="mb-2 text-center">
-          Login Administrator
+          Login Customer
         </h1>
 
         <!-- The Card -->
@@ -95,7 +95,7 @@ export default {
         const redirect = this.$route.query?.redirect
         redirect
           ? this.$router.push(redirect)
-          : this.$router.push({ name: 'administrator.home' })
+          : this.$router.push({ name: 'Home' })
       } catch (err) {
         const status = err?.response?.status
 

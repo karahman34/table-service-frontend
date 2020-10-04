@@ -121,11 +121,11 @@ export default {
       this.$overlay.show()
       
       try {
+        // Call vuex action.
         await this.$auth.logout()
 
         this.$router.push({
-          name: 'administrator.login',
-          query: { type: 'customer' },
+          name: 'login',
         })
       } catch (err) {
         this.$alert.show({

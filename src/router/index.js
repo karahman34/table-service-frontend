@@ -17,6 +17,16 @@ const routes = [
     component: Home,
   },
   {
+    path: '/login',
+    name: 'login',
+    meta: {
+      guest: true,
+      customer: true,
+      layout: 'auth',
+    },
+    component: () => import('@/views/Login.vue'),
+  },
+  {
     path: '/search',
     name: 'search',
     meta: {
