@@ -115,7 +115,8 @@ class Auth {
   }
 
   can(permissions) {
-    const userPermissions = this.store.state.auth.user.permissions
+    const userPermissions = this.store.state.auth.user?.permissions
+    if (!userPermissions) return false
     
     if (!Array.isArray(permissions)) {
       return userPermissions.includes(permissions)
