@@ -26,6 +26,15 @@ const routes = [
     },
     component: () => import('@/views/Search.vue'),
   },
+  {
+    path: '/carts',
+    name: 'cart',
+    meta: {
+      auth: true,
+      customer: true,
+    },
+    component: () => import('@/views/Carts.vue'),
+  },
   ...administrator,
   {
     path: '/forbidden',
