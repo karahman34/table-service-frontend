@@ -91,6 +91,17 @@ const routes = [
     component: () => import('@/views/administrator/Transactions.vue'),
   },
   {
+    path: '/transactions/:id/print',
+    name: 'transactions.print',
+    meta: {
+      title: 'Transactions',
+      layout: 'auth',
+      auth: true,
+      permissions: ['transaction.index', 'transaction.export'],
+    },
+    component: () => import('@/views/administrator/Print.vue'),
+  },
+  {
     path: '/orders',
     name: 'orders',
     meta: {

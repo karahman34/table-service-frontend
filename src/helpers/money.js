@@ -8,3 +8,15 @@ export function rupiah(price) {
     decimal: ',',
   })
 }
+
+export function calculateFoodPrice(food) {
+  let price = food.price
+  const discount = food.discount
+
+  if (parseInt(discount) > 0) {
+    const discountPrice = discount / 100 * price
+    price -= discountPrice
+  }
+
+  return price
+}

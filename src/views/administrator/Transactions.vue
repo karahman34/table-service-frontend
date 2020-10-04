@@ -24,7 +24,7 @@
         >
           <!-- Total Price -->
           <template v-slot:[`item.total_price`]="{item}">
-            Rp. {{ item.total_price }}
+            {{ formatMoney(item.total_price) }}
           </template>
 
           <!-- Actions -->
@@ -38,6 +38,22 @@
             </span> 
 
             <template v-else>
+              <!-- Print Button -->
+              <v-tooltip top>
+                <template v-slot:activator="{on}">
+                  <v-btn
+                    icon
+                    color="primary"
+                    v-on="on"
+                    @click="printTransaction(item)"
+                  >
+                    <v-icon>mdi mdi-printer</v-icon>
+                  </v-btn>
+                </template>
+
+                Print
+              </v-tooltip>
+
               <!-- Delete Button -->
               <delete-btn
                 v-if="$auth.can('transaction.delete')"
@@ -65,6 +81,7 @@ import DataTableMixin from '@/mixins/DataTableMixin'
 import Card from '@/components/admins/Card.vue'
 import DeleteBtn from '@/components/admins/buttons/Delete.vue'
 import DeleteDialog from '@/components/transaction/admin/DeleteDialog.vue'
+import { rupiah } from '@/helpers/money'
 
 export default {
   components: {
@@ -120,6 +137,18 @@ export default {
   },
 
   methods: {
+    formatMoney(price) {
+      return rupiah(price)
+    },
+    printTransaction(transaction) {
+      const routerData = this.$router.resolve({
+        name: 'administrator.transactions.print',
+        params: {
+          id: transaction.id,
+        },
+      })
+      window.open(routerData.href, '_blank')
+    },
     deleteItem(item) {
       this.focusItem = item
       this.deleteDialog = true

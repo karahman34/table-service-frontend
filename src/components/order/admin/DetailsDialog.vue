@@ -281,13 +281,25 @@ export default {
         const res = await transactionApi.create({
           _order_id: this.order.id,
         })
-        const {ok} = res.data
+        const {ok, data} = res.data
 
         if (ok) {
           this.$alert.show({
             message: 'Success to create the transaction.',
           })
 
+          // Open printer
+          setTimeout(() => {
+            const routerData = this.$router.resolve({
+              name: 'administrator.transactions.print',
+              params: {
+                id: data.transaction.id,
+              },
+            })
+            window.open(routerData.href, '_blank')
+          }, 900)
+
+          // Emit an event
           this.$emit('transaction-created')
         }
       } catch (err) {
