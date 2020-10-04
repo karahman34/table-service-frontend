@@ -59,7 +59,10 @@
           v-on="on"
         >
           <v-icon>mdi mdi-account</v-icon>
-          <span class="mx-1">{{ username }}</span>
+          <span
+            id="username"
+            class="mx-1"
+          >{{ username }}</span>
           <v-icon>mdi mdi-chevron-down</v-icon>
         </v-btn>
       </template>
@@ -165,6 +168,12 @@ export default {
   padding: 0 0px;
 }
 
+@media screen and (max-width: 600px) {
+  #username {
+    display: none;
+  }
+}
+
 @media screen and (min-width: 1264px) {
   #nav-top {
     padding: 0 calc(15% - 16px);
@@ -191,7 +200,7 @@ export default {
 
   @media screen and (max-width: 600px) {
     #nav-search {
-      width: 150px;
+      width: 210px;
     }
   }
 
