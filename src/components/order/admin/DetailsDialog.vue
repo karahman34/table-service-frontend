@@ -4,7 +4,7 @@
       v-model="dialog"
       scrollable  
       persistent 
-      max-width="950px"
+      max-width="1200px"
       transition="dialog-transition"
     >
       <v-card>
@@ -28,12 +28,25 @@
           >
             <!-- Price -->
             <template v-slot:[`item.food.price`]="{item}">
-              Rp. {{ calculateTotalPrice(item.food) }}
+              {{ formatMoney(calculateTotalPrice(item.food)) }}
+            </template>
+
+            <!-- Tips -->
+            <template v-slot:[`item.tips`]="{item}">
+              <span
+                v-if="item.tips"
+                v-text="item.tips"
+              />
+
+              <span
+                v-else
+                class="grey--text"
+              >No tips.</span>
             </template>
 
             <!-- Total -->
             <template v-slot:[`item.total`]="{item}">
-              Rp. {{ calculateSubTotalPrice(item) }}
+              {{ formatMoney(calculateSubTotalPrice(item)) }}
             </template>
 
             <!-- Served At -->
@@ -64,16 +77,19 @@
 
           <!-- Footer -->
           <div class="float-right mt-3">
-            <!-- Subtotal -->
+            <!-- Total -->
             <div
-              id="subtotal"
+              id="total"
             >
-              <h4 class="d-inline font-weight-regular">
-                Subtotal:
-              </h4>
-              <h3 class="d-inline grey--text text--darken-1">
-                Rp. {{ totalPrice }}
-              </h3>
+              <span class="d-inline font-weight-medium mr-1">
+                Total:
+              </span>
+              <p
+                class="d-inline grey--text text--darken-2 font-weight-bold"
+                style="font-size: 16px;"
+              >
+                {{ formatMoney(totalPrice) }}
+              </p>
             </div>
 
             <!-- Checkout Button -->
@@ -84,7 +100,8 @@
               :loading="checkoutLoading"
               @click="checkout"
             >
-              Checkout
+              <v-icon>mdi mdi-cart</v-icon>
+              <span class="ml-1">Checkout</span>
             </v-btn>
           </div>
         </v-card-text>
@@ -108,6 +125,7 @@ import DeleteDialog from './DeleteDetailDialog.vue'
 import DeleteBtn from '@/components/admins/buttons/Delete.vue'
 import orderApi from '@/api/orderApi'
 import transactionApi from '@/api/transactionApi'
+import { rupiah } from '@/helpers/money'
 
 export default {
   components: {
@@ -136,16 +154,20 @@ export default {
           value: 'food.name',
         },
         {
-          text: 'Qty',
-          value: 'qty',
-        },
-        {
           text: 'Food Price',
           value: 'food.price',
         },
         {
+          text: 'Qty',
+          value: 'qty',
+        },
+        {
           text: 'Total',
           value: 'total',
+        },
+        {
+          text: 'Tips',
+          value: 'tips',
         },
         {
           text: 'Served At',
@@ -181,6 +203,9 @@ export default {
   },
 
   methods: {
+    formatMoney(price) {
+      return rupiah(price)
+    },
     calculateTotalPrice(food) {
       const foodPrice = parseFloat(food.price)
       const foodDiscount = parseFloat(food.discount)
