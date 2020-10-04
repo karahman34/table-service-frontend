@@ -88,6 +88,8 @@ export default {
         this.$alert.show({
           message: 'Table created.',
         })
+
+        this.closeDialog()
       } catch (err) {
         const errorCode = err?.response?.status
 
