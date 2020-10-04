@@ -18,4 +18,7 @@ export default {
     const itemIndex = state.items.findIndex(item => item.food.id === food.id.toString)
     state.items.splice(itemIndex, 1)
   },
+  CLEAR(state) {
+    state.items = []
+  },
 }
