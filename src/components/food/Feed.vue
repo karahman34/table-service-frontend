@@ -32,26 +32,35 @@
       </v-col>
     </v-row>
 
-    <!-- Loading -->
-    <div
+    <!-- Skeleton -->
+    <v-row
       v-else
-      class="text-center grey--text text--darken-1"
+      class="mt-1"
     >
-      <v-progress-circular indeterminate />
-      <p class="pa-0 mt-2">
-        Loading {{ title.toLowerCase() }} foods..
-      </p>
-    </div>
+      <v-col
+        v-for="n in 12"
+        :key="n"
+        cols="6"
+        sm="4"
+        md="3"
+        xl="2"
+      >
+        <!-- Content Skeleton -->
+        <skeleton v-if="loading" />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
 import Food from '@/components/food/Food'
+import Skeleton from '@/components/food/Skeleton.vue'
 import SeeMoreButton from '@/components/food/SeeMoreButton.vue'
 
 export default {
   components: {
     Food,
+    Skeleton,
     SeeMoreButton,
   },
 
