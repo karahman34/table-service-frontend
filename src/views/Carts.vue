@@ -87,6 +87,7 @@
           
           <v-btn
             color="green lighten-1 white--text"
+            :disabled="!carts.length"
             @click="checkout"
           >
             <v-icon>mdi mdi-cart</v-icon>
