@@ -8,11 +8,29 @@
           <span class="ml-1">Categories</span>
         </div>
 
-        <create-btn
-          v-if="$auth.can('category.create')"
-          text="Category"
-          @click.native="formDialog = true"
-        />
+        <div>
+          <!-- Export -->
+          <export
+            v-if="$auth.can('category.export')"
+            title="categories"
+            :action="exportAction"
+          />
+
+          <!-- Import -->
+          <import
+            v-if="$auth.can('category.import')"
+            class="mx-2"
+            :action="importAction"
+            @imported="refreshItems()"
+          />
+
+          <!-- Create Button -->
+          <create-btn
+            v-if="$auth.can('category.create')"
+            text="Category"
+            @click.native="formDialog = true"
+          />
+        </div>
       </v-card-title>
 
       <v-card-text>
@@ -94,6 +112,8 @@ import DeleteBtn from '@/components/admins/buttons/Delete.vue'
 import FormDialog from '@/components/category/admin/FormDialog.vue'
 import DeleteDialog from '@/components/category/admin/DeleteDialog.vue'
 import Search from '@/components/admins/Search.vue'
+import Export from '@/components/admins/buttons/Export'
+import Import from '@/components/admins/buttons/Importt'
 
 export default {
   components: {
@@ -104,6 +124,8 @@ export default {
     FormDialog,
     DeleteDialog,
     Search,
+    Export,
+    Import,
   },
 
   mixins: [DataTableMixin],
@@ -134,6 +156,8 @@ export default {
       focusItem: null,
       formDialog: false,
       deleteDialog: false,
+      exportAction: categoryApi.export,
+      importAction: categoryApi.import,
     }
   },
 

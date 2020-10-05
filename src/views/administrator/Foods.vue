@@ -8,11 +8,29 @@
           <span class="ml-1">Foods</span>
         </div>
 
-        <create-btn
-          v-if="$auth.can('user.create')"
-          text="food"
-          @click.native="formDialog = true"
-        />
+        <div>
+          <!-- Export -->
+          <export
+            v-if="$auth.can('food.export')"
+            title="foods"
+            :action="exportAction"
+          />
+
+          <!-- Import -->
+          <import
+            v-if="$auth.can('food.import')"
+            class="mx-2"
+            :action="importAction"
+            @imported="refreshItems()"
+          />
+
+          <!-- Create -->
+          <create-btn
+            v-if="$auth.can('user.create')"
+            text="food"
+            @click.native="formDialog = true"
+          />
+        </div>
       </v-card-title>
 
       <v-card-text>
@@ -107,6 +125,8 @@ import DeleteBtn from '@/components/admins/buttons/Delete.vue'
 import FormDialog from '@/components/food/admin/FormDialog.vue'
 import DeleteDialog from '@/components/food/admin/DeleteDialog.vue'
 import Search from '@/components/admins/Search.vue'
+import Export from '@/components/admins/buttons/Export'
+import Import from '@/components/admins/buttons/Importt'
 
 export default {
   components: {
@@ -117,6 +137,8 @@ export default {
     FormDialog,
     DeleteDialog,
     Search,
+    Export,
+    Import,
   },
 
   mixins: [DataTableMixin],
@@ -165,6 +187,8 @@ export default {
       focusItem: null,
       formDialog: false,
       deleteDialog: false,
+      exportAction: foodApi.export,
+      importAction: foodApi.import,
     }
   },
 

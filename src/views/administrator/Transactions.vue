@@ -7,6 +7,23 @@
           <v-icon>mdi mdi-cash</v-icon>
           <span class="ml-1">Transactions</span>
         </div>
+
+        <div>
+          <!-- Export -->
+          <export
+            v-if="$auth.can('transaction.export')"
+            title="transactions"
+            :action="exportAction"
+          />
+
+          <!-- Import -->
+          <import
+            v-if="$auth.can('transaction.import')"
+            class="mx-2"
+            :action="importAction"
+            @imported="refreshItems()"
+          />
+        </div>
       </v-card-title>
 
       <v-card-text>
@@ -82,12 +99,16 @@ import Card from '@/components/admins/Card.vue'
 import DeleteBtn from '@/components/admins/buttons/Delete.vue'
 import DeleteDialog from '@/components/transaction/admin/DeleteDialog.vue'
 import { rupiah } from '@/helpers/money'
+import Export from '@/components/admins/buttons/Export'
+import Import from '@/components/admins/buttons/Importt'
 
 export default {
   components: {
     Card,
     DeleteBtn,
     DeleteDialog,
+    Export,
+    Import,
   },
 
   mixins: [DataTableMixin],
@@ -129,6 +150,8 @@ export default {
       ],
       focusItem: null,
       deleteDialog: false,
+      exportAction: transactionApi.export,
+      importAction: transactionApi.import,
     }
   },
 

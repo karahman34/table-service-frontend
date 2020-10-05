@@ -8,11 +8,29 @@
           <span class="ml-1">Users</span>
         </div>
 
-        <create-btn
-          v-if="$auth.can('user.create')"
-          text="User"
-          @click.native="formDialog = true"
-        />
+        <div>
+          <!-- Export -->
+          <export
+            v-if="$auth.can('user.export')"
+            title="users"
+            :action="exportAction"
+          />
+
+          <!-- Import -->
+          <import
+            v-if="$auth.can('user.import')"
+            class="mx-2"
+            :action="importAction"
+            @imported="refreshItems()"
+          />
+
+          <!-- Create Button -->
+          <create-btn
+            v-if="$auth.can('user.create')"
+            text="User"
+            @click.native="formDialog = true"
+          />
+        </div>
       </v-card-title>
 
       <v-card-text>
@@ -125,6 +143,8 @@ import DeleteDialog from '@/components/user/admin/DeleteDialog.vue'
 import SyncRolesDialog from '@/components/admins/SyncDialog.vue'
 import Search from '@/components/admins/Search.vue'
 import roleApi from '@/api/roleApi'
+import Export from '@/components/admins/buttons/Export'
+import Import from '@/components/admins/buttons/Importt'
 
 export default {
   components: {
@@ -136,6 +156,8 @@ export default {
     DeleteDialog,
     SyncRolesDialog,
     Search,
+    Export,
+    Import,
   },
 
   mixins: [DataTableMixin],
@@ -170,6 +192,8 @@ export default {
       syncRolesLoading: false,
       roles: [],
       selectedRoles: null,
+      exportAction: userApi.export,
+      importAction: userApi.import,
     }
   },
 

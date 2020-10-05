@@ -8,6 +8,15 @@ export default {
       params,
     })
   },
+  export(params) {
+    return http.get(`${prefix}/export`, {
+      params,
+      responseType: 'blob',
+    })
+  }, 
+  import(payload) {
+    return http.post(`${prefix}/import`, payload)
+  }, 
   create(payload) {
     return http.post(prefix, payload)
   },
