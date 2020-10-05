@@ -190,7 +190,7 @@ export default {
       deleteDialog: false,
       syncRolesDialog: false,
       syncRolesLoading: false,
-      roles: [],
+      roles: null,
       selectedRoles: null,
       exportAction: permissionApi.export,
       importAction: permissionApi.import,
@@ -204,7 +204,6 @@ export default {
     syncRolesDialog(val) {
       if (val) return
 
-      this.roles = []
       this.selectedRoles = []
       this.focusItem = null
     },
@@ -233,11 +232,18 @@ export default {
 
       this.refreshItems()
     },
+    setSelectedRoles() {
+      const permissionRoles = this.focusItem.roles.map(role => role.name)
+
+      this.selectedRoles = this.roles.filter(role => permissionRoles.includes(role.name))
+    },
     async openSyncRolesDialog(permission) {
-      this.syncRolesDialog = true
       this.focusItem = permission
 
-      this.getRoles()
+      if (!this.roles) await this.getRoles()
+      else this.setSelectedRoles()
+
+      this.syncRolesDialog = true
     },
     async getRoles(search) {
       const payload = {
@@ -251,10 +257,8 @@ export default {
         const {ok, data} = res.data
 
         if (ok) {
-          const permissionRoles = this.focusItem.roles.map(role => role.name)
-
           this.roles = data
-          this.selectedRoles = this.roles.filter(role => permissionRoles.includes(role.name))
+          this.setSelectedRoles()
         }
       } catch (err) {
         this.$alert.show({

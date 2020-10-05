@@ -190,7 +190,7 @@ export default {
       deleteDialog: false,
       syncPermissionsDialog: false,
       syncPermissionsLoading: false,
-      permissions: [],
+      permissions: null,
       selectedPermissions: null,
       exportAction: roleApi.export,
       importAction: roleApi.import,
@@ -204,7 +204,6 @@ export default {
     syncPermissionsDialog(val) {
       if (val) return
 
-      this.permissions = []
       this.selectedPermissions = []
       this.focusItem = null
     },
@@ -233,11 +232,18 @@ export default {
 
       this.refreshItems()
     },
+    setSelectedPermissions() {
+      const rolePermissions = this.focusItem.permissions.map(permission => permission.name)
+
+      this.selectedPermissions = this.permissions.filter(permission => rolePermissions.includes(permission.name))
+    },
     async openSyncPermissionsDialog(role) {
-      this.syncPermissionsDialog = true
       this.focusItem = role
 
-      this.getPermissions()
+      if (!this.permissions) await this.getPermissions()
+      else this.setSelectedPermissions()
+
+      this.syncPermissionsDialog = true
     },
     async getPermissions(search) {
       const payload = {
@@ -251,10 +257,8 @@ export default {
         const {ok, data} = res.data
 
         if (ok) {
-          const rolePermissions = this.focusItem.permissions.map(permission => permission.name)
-
           this.permissions = data
-          this.selectedPermissions = this.permissions.filter(permission => rolePermissions.includes(permission.name))
+          this.setSelectedPermissions()
         }
       } catch (err) {
         this.$alert.show({

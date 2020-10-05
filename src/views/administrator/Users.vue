@@ -190,7 +190,7 @@ export default {
       deleteDialog: false,
       syncRolesDialog: false,
       syncRolesLoading: false,
-      roles: [],
+      roles: null,
       selectedRoles: null,
       exportAction: userApi.export,
       importAction: userApi.import,
@@ -204,7 +204,6 @@ export default {
     syncRolesDialog(val) {
       if (val) return
 
-      this.roles = []
       this.selectedRoles = []
       this.focusItem = null
     },
@@ -234,10 +233,12 @@ export default {
       this.refreshItems()
     },
     async openSyncRolesDialog(user) {
-      this.syncRolesDialog = true
       this.focusItem = user
 
-      this.getRoles()
+      if (!this.roles) await this.getRoles()
+      else this.selectedRoles = this.roles.filter(role => this.focusItem.roles.includes(role.name))
+      
+      this.syncRolesDialog = true
     },
     async getRoles(search) {
       const payload = {}
