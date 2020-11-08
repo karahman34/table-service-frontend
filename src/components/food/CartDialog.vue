@@ -212,13 +212,15 @@ export default {
         })
 
         this.$alert.show({
-          message: 'Item saved',
+          message: 'Item successfully added to the cart.',
         })
 
         this.form = {
           qty: 0,
           tips: null,
         }
+
+        this.closeDialog()
       } catch (err) {
         this.$alert.show({
           type: 'error',
