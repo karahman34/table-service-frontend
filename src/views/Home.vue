@@ -3,6 +3,7 @@
     <!-- New Foods -->
     <feed
       title="New"
+      icon="mdi mdi-filter"
       :foods="foods.new.items"
       :loading="foods.new.loading"
       :to="{name: 'search', query: { filter: 'new' }}"
@@ -13,6 +14,7 @@
     <feed
       class="my-12"
       title="Random"
+      icon="mdi mdi-transition"
       :foods="foods.random.items"
       :loading="foods.random.loading"
       :to="{name: 'search', query: { filter: 'random' }}"
@@ -22,6 +24,7 @@
     <!-- Popular Foods -->
     <feed
       title="Popular"
+      icon="mdi mdi-fire"
       :foods="foods.popular.items"
       :loading="foods.popular.loading"
       :to="{name: 'search', query: { filter: 'popular' }}"

@@ -4,7 +4,11 @@
     <div class="food-feed-header">
       <!-- Title -->
       <p class="food-feed-title">
-        {{ title }}
+        <v-icon
+          class="mb-1 mr-1"
+          v-text="icon"
+        />
+        <span>{{ title }}</span>
       </p>
 
       <!-- See More Button -->
@@ -78,6 +82,10 @@ export default {
       required: true,
     },
     title: {
+      type: String,
+      required: true,
+    },
+    icon: {
       type: String,
       required: true,
     },
