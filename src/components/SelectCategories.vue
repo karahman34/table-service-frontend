@@ -50,7 +50,7 @@
             multiple
           >
             <v-chip
-              v-for="category in options"
+              v-for="category in filteredOptions"
               :key="category.name"
               active-class="success white--text"
               :value="category"
@@ -100,6 +100,14 @@ export default {
       selected: [],
       search: null,
     }
+  },
+
+  computed: {
+    filteredOptions() {
+      if (!this.search) return this.options
+
+      return this.options.filter(category => category.name.includes(this.search)) 
+    },
   },
 
   watch: {
