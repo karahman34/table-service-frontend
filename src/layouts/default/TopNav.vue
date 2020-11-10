@@ -69,10 +69,7 @@
 
       <v-list>
         <!-- Set Table -->
-        <v-list-item
-          v-if="$auth.can('table.update')"
-          @click="setTable = true"
-        >
+        <v-list-item @click="setTableDialog = true">
           <v-list-item-title class="black--text">
             <v-icon>mdi mdi-format-list-numbered</v-icon>
             <span class="ml-2">Set Table</span>
@@ -91,14 +88,14 @@
 
     <!-- Set Table -->
     <set-table
-      v-if="setTable"
-      @close="setTable = false"
+      v-if="setTableDialog"
+      @close="setTableDialog = false"
     />
   </v-app-bar>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 import SetTable from '@/components/table/SetDialog.vue'
 
 export default {
@@ -108,7 +105,7 @@ export default {
 
   data() {
     return {
-      setTable: false,
+      setTableDialog: false,
       search: null,
     }
   },
@@ -116,6 +113,9 @@ export default {
   computed: {
     ...mapState('cart', {
       carts: state => state.items,
+    }),
+    ...mapState('table', {
+      tableNumber: state => state.number,
     }),
     username() {
       return this.$auth.user?.username || null 
@@ -128,7 +128,16 @@ export default {
     },
   },
 
+  mounted () {
+    if (!this.tableNumber) {
+      this.setTableDialog = true
+    }
+  },
+
   methods: {
+    ...mapMutations('table', {
+      setTableNumber: 'SET_NUMBER',
+    }),
     goSearch() {
       const currentPathQuery = this.$route.query
       if (this.$route.name === 'search' && currentPathQuery?.search === this.search) return
@@ -147,6 +156,8 @@ export default {
         // Call vuex action.
         await this.$auth.logout()
 
+        this.setTableNumber(null)
+        
         this.$router.push({
           name: 'login',
         })
