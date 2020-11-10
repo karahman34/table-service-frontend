@@ -2,7 +2,8 @@
   <div>
     <!-- Results meta -->
     <h1>
-      {{ serverItemsLength }} results for "{{ search }}"
+      <span>{{ serverItemsLength }} results</span>
+      <span v-if="search !== null && search.length">for "{{ search }}"</span>
     </h1>
 
     <!-- Filter Container -->
@@ -20,11 +21,9 @@
 
       <!-- Category -->
       <v-select
-        v-model="form.category"
-        :items="[]"
         filled
         hide-details
-        label="Category"
+        :label="selectedCategories.length ? selectedCategoriesNames : 'Select Categories'"
         class="d-inline-block ml-4"
         prepend-inner-icon="mdi mdi-tag-multiple"
         @click.prevent="selectCategories = true"
@@ -152,8 +151,11 @@ export default {
         limit: this.limit,
         search: this.search,
         filter: this.form.filter,
-        categories: !this.selectedCategories.length ? null : this.selectedCategories.join(','),
+        categories: !this.selectedCategories.length ? null : this.selectedCategories.map(_c => _c.id).join(','),
       }
+    },
+    selectedCategoriesNames() {
+      return this.selectedCategories.map(category => category.name).join(',')
     },
     paginationTotal() {
       return Math.ceil(this.serverItemsLength / this.limit)

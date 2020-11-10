@@ -17,7 +17,7 @@
         </v-btn>
       </v-card-title>
 
-      <v-card-text class="pb-0">
+      <v-card-text>
         <!-- Loading -->
         <div
           v-if="loading"
@@ -30,65 +30,46 @@
         </div>
 
         <template v-else>
-          <!-- Header -->
-          <v-row
-            style="border-bottom: 1px solid rgba(0,0,0,0.2);padding-bottom: 7px !important;"
+          <!-- Search -->
+          <v-text-field
+            v-model="search"
+            dense
+            filled
+            rounded
+            hide-details
+            single-line
+            class="mb-2"
+            label="Search tags.."
+            prepend-inner-icon="mdi mdi-magnify"
+          />
+
+          <!-- Tags -->
+          <v-chip-group
+            v-model="selected"
+            column
+            multiple
           >
-            <v-col
-              cols="6"
-              class="text-center black--text pb-0"
+            <v-chip
+              v-for="category in options"
+              :key="category.name"
+              active-class="success white--text"
+              :value="category"
             >
-              <span style="font-size:18px;">Name</span>
-            </v-col>
-            <v-col
-              cols="6"
-              class="text-center black--text pb-0"
-            >
-              <span style="font-size:18px;">Check</span>
-            </v-col>
-          </v-row>
+              {{ category.name }}
+            </v-chip>
+          </v-chip-group>
 
-          <!-- Content -->
-          <div class="content">
-            <v-row
-              v-for="option in options"
-              :key="option.id"
-            >
-              <!-- Name -->
-              <v-col cols="6">
-                <div class="option text-center grey--text text--darken-4 mt-1">
-                  {{ option.name }}
-                </div>
-              </v-col>
-
-              <!-- Check -->
-              <v-col cols="6">
-                <div class="check d-flex justify-center">
-                  <v-checkbox
-                    v-model="selected"
-                    multiple
-                    hide-details
-                    class="ma-0"
-                    :value="option.id"
-                  />
-                </div>
-              </v-col>
-            </v-row>
-          </div>
+          <!-- Save -->
+          <v-btn
+            block
+            class="mt-2"
+            color="success"
+            @click="save"
+          >
+            Select
+          </v-btn>
         </template>
       </v-card-text>
-
-      <v-card-actions v-if="!loading">
-        <!-- Save -->
-        <v-btn
-          block
-          class="mt-2"
-          color="success"
-          @click="save"
-        >
-          Save
-        </v-btn>
-      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -117,6 +98,7 @@ export default {
   data() {
     return {
       selected: [],
+      search: null,
     }
   },
 
