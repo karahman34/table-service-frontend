@@ -26,7 +26,10 @@
           placeholder="Search..."
         >
 
-        <v-icon id="nav-search-icon">
+        <v-icon
+          id="nav-search-icon"
+          @click="goSearch"
+        >
           mdi mdi-magnify
         </v-icon>
       </v-form>
@@ -224,6 +227,7 @@ export default {
   }
 
   #nav-search-icon {
+    cursor: pointer;
     position: absolute;
     left: 15px;
     top: 8px;
