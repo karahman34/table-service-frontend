@@ -9,7 +9,7 @@ export default {
   login(credentials) {
     return http.post(`${prefix}/login`, credentials)
   },
-  logout() {
-    return http.post(`${prefix}/logout`)
+  logout(payload = null) {
+    return http.post(`${prefix}/logout`, payload)
   },
 }

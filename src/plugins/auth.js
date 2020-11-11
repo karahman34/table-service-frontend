@@ -64,9 +64,9 @@ const vuex = {
         return Promise.reject(err)
       }
     },
-    async logout({commit}) {
+    async logout({commit}, payload = null) {
       try {
-        const res = await authApi.logout()
+        const res = await authApi.logout(payload)
         const {ok} = res.data
   
         if (ok) {
@@ -139,8 +139,8 @@ class Auth {
     return this.store.dispatch('auth/getUser')
   }
 
-  async logout() {
-    return this.store.dispatch('auth/logout')
+  async logout(payload = null) {
+    return this.store.dispatch('auth/logout', payload)
   }
 }
 

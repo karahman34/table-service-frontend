@@ -94,8 +94,8 @@ export default {
         // Redirect user
         const redirect = this.$route.query?.redirect
         redirect
-          ? this.$router.push(redirect)
-          : this.$router.push({ name: 'Home' })
+          ? window.location.href = redirect
+          : window.location.href = '/'
       } catch (err) {
         const status = err?.response?.status
 

@@ -93,6 +93,7 @@
     <set-table
       v-if="setTableDialog"
       @close="setTableDialog = false"
+      @save="listenTableEvents"
     />
   </v-app-bar>
 </template>
@@ -123,6 +124,9 @@ export default {
     username() {
       return this.$auth.user?.username || null 
     },
+    tableChannelName() {
+      return `table.${this.tableNumber}`
+    },
   },
 
   watch: {
@@ -132,14 +136,21 @@ export default {
   },
 
   mounted () {
+    // Set table first
     if (!this.tableNumber) {
       this.setTableDialog = true
+    } else {
+      // listen to table events
+      this.listenTableEvents()
     }
   },
 
   methods: {
     ...mapMutations('table', {
       setTableNumber: 'SET_NUMBER',
+    }),
+    ...mapMutations('cart', {
+      clearCart: 'CLEAR',
     }),
     goSearch() {
       const currentPathQuery = this.$route.query
@@ -155,12 +166,16 @@ export default {
     async goLogout() {
       this.$overlay.show()
       
+      const payload = {}
+      if (this.tableNumber) payload.number = this.tableNumber
+      
       try {
         // Call vuex action.
-        await this.$auth.logout()
+        await this.$auth.logout(payload)
 
+        this.clearCart()
         this.setTableNumber(null)
-        
+
         this.$router.push({
           name: 'login',
         })
@@ -172,6 +187,24 @@ export default {
       } finally {
         this.$overlay.close()
       }
+    },
+    orderFinish() {
+      this.setTableNumber(null)
+      this.$router.replace('/')
+      this.leaveChannel()
+
+      this.$nextTick(() => {
+        this.setTableDialog = true
+      })
+    },
+    leaveChannel() {
+      window.Echo.leave(this.tableChannelName)
+    },
+    listenTableEvents() {
+      window.Echo.private(this.tableChannelName)
+        .listen('.complete', () => {
+          this.orderFinish()
+        })
     },
   },
 }

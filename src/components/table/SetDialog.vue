@@ -174,6 +174,8 @@ export default {
           type: 'success',
           text: `Table number ${this.form.number} ready!`,
         }
+
+        this.$emit('save')
       } catch (err) {
         const statusCode = err?.response?.status
         this.alertMessage.type = 'error'

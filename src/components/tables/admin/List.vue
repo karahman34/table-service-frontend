@@ -101,10 +101,12 @@ export default {
 
   mounted () {
     this.getTables()
+    this.listenTableEvents()
   },
 
   methods: {
     async getTables() {
+      this.tables = []
       this.loading = true
 
       try {
@@ -134,6 +136,12 @@ export default {
 
       this.tables = null
       this.getTables()
+    },
+    listenTableEvents() {
+      window.Echo.channel('tables')
+        .listen('.refresh', () => {
+          this.getTables()
+        })
     },
   },
 }
