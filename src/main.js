@@ -8,6 +8,7 @@ import overlayPlugin from './plugins/overlay'
 import vuetify from './plugins/vuetify'
 import router from './router'
 import store from './store'
+import Echo from './plugins/echo'
 
 
 Vue.config.productionTip = false
@@ -42,6 +43,9 @@ async function initial() {
         // Get user
         try {
           await store.dispatch('auth/getUser')
+
+          // Use Echo
+          Echo()
         } catch (err) {
           removeToken()
         }
