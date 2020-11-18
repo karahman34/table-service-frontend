@@ -14,10 +14,9 @@
         <banner
           :text="banner.text"
           :color="banner.color"
-          :get-api="banner.getApi"
           :icon="banner.icon"
           :to="banner.to"
-          :params="banner.params"
+          :items="banner.items"
         />
       </v-col>
     </v-row>
@@ -59,6 +58,7 @@ export default {
           getApi: orderApi.new,
           color: 'orange lighten-1',
           params: null,
+          items: null,
         },
         {
           text: 'Foods',
@@ -69,6 +69,7 @@ export default {
           params: {
             limit: -1,
           },
+          items: null,
         },
         {
           text: 'Users',
@@ -79,6 +80,7 @@ export default {
           params: {
             limit: -1,
           },
+          items: null,
         },
         {
           text: 'Customers',
@@ -90,9 +92,45 @@ export default {
             limit: -1,
             available: 'N',
           },
+          items: null,
         },
       ],
     }
+  },
+
+  mounted () {
+    this.setBannersItems()
+    this.listenNewOrders()
+  },
+
+  methods: {
+    setBannersItems() {
+      this.banners.map(banner => this.getBannerItems(banner))
+    },
+    async getBannerItems(banner) {
+      try {
+        const res = await banner.getApi(banner.params)
+        const {ok, data} = res.data
+
+        if (!ok) throw new Error
+
+        banner.items = data.length
+      } catch (err) {
+        this.$alert.show({
+          type: 'error',
+          message: `Failed to get ${banner.text.toLowerCase()} banner items.`,
+        })
+      }
+    },
+    listenNewOrders() {
+      window.Echo.private('orders')
+        .listen('.new', () => {
+          const banner = this.banners.find(_banner => _banner.text.toLowerCase() === 'new orders')
+          banner.items = null
+
+          this.getBannerItems(banner)
+        })
+    },
   },
 }
 </script>

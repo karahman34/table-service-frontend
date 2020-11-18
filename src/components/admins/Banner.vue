@@ -12,13 +12,13 @@
 
         <!-- count -->
         <span
-          v-if="count >= 0"
+          v-if="items >= 0"
           class="item-count"
-        >{{ count }}</span>
+        >{{ items }}</span>
 
         <!-- Loading -->
         <v-progress-circular
-          v-if="count == null"
+          v-if="items == null"
           indeterminate
           size="26"
           class="white--text mt-1"
@@ -70,42 +70,9 @@ export default {
       type: String,
       required: true,
     },
-    getApi: {
-      type: Function,
-      required: true,
-    },
-    params: {
-      type: Object,
+    items: {
+      type: Number,
       default: null,
-    },
-  },
-
-  data() {
-    return {
-      count: null,
-      loading: false,
-    }
-  },
-
-  mounted () {
-    this.getItemCount()
-  },
-
-  methods: {
-    async getItemCount() {
-      try {
-        const res = await this.getApi(this.params)
-        const {ok, data} = res.data
-
-        if (!ok) throw new Error
-
-        this.count = data.length
-      } catch (err) {
-        this.$alert.show({
-          type: 'error',
-          message: 'Failed to get items.',
-        })
-      }
     },
   },
 }
