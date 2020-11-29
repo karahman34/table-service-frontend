@@ -10,7 +10,15 @@
 
     <v-card-text>
       <span class="food-name d-block">{{ food.name }}</span>
-      <span class="food-price">{{ formatMoney(food.price) }}</span>
+      <span class="food-price">
+        <span>{{ foodPrice }}</span>
+        <span
+          v-if="parseInt(food.discount) > 0"
+          class="orange px-1 ml-2 white--text font-weight-medium"
+        >
+          {{ food.discount }}% OFF
+        </span>
+      </span>
     </v-card-text>
 
     <v-btn
@@ -38,9 +46,15 @@ export default {
     },
   },
 
-  methods: {
-    formatMoney(price) {
-      return rupiah(price)
+  computed: {
+    foodPrice() {
+      const discount = parseInt(this.food.discount)
+      if (discount === 0) return rupiah(this.food.price)
+
+      const discountPrice = (discount / 100) * this.food.price
+      const totalDiscount = this.food.price - discountPrice
+
+      return rupiah(totalDiscount)
     },
   },
 }

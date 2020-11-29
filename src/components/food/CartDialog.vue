@@ -46,7 +46,13 @@
             </p>
 
             <p class="food-price">
-              {{ formatMoney(food.price) }}
+              <span>{{ formatMoney(foodPrice) }}</span>
+              <span
+                v-if="parseInt(food.discount) > 0"
+                class="orange px-1 ml-2 white--text font-weight-medium"
+              >
+                {{ food.discount }}% OFF
+              </span>
             </p>
 
             <p class="food-description">
@@ -176,7 +182,17 @@ export default {
       return !cartsFoodIds.includes(this.food.id)
     },
     total() {
-      return this.food.price * this.form.qty
+      return this.foodPrice * this.form.qty
+    },
+    foodPrice() {
+      const price = parseInt(this.food.price)
+      const discount = parseInt(this.food.discount)
+      if (discount === 0) return price
+
+      const discountPrice = (discount / 100) * price
+      const totalDiscount = price - discountPrice
+
+      return totalDiscount
     },
   },
 
