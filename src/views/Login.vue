@@ -1,61 +1,60 @@
 <template>
-  <div>
-    <v-row justify="center">
-      <v-col
-        md="6"
-        lg="4"
+  <div
+    class="d-flex justify-center pt-16"
+  >
+    <div style="width: 100%;">
+      <!-- The Card -->
+      <v-card
+        id="login-card"
+        elevation="3"
       >
-        <h1 class="mb-2 text-center">
-          Login Customer
-        </h1>
+        <v-card-title class="pb-0">
+          <span class="mdi mdi-food-fork-drink headline grey--text text--darken-3 font-weight-medium" />
+          <span class="ml-2 headline grey--text text--darken-3 font-weight-medium">{{ appName }}</span>
+        </v-card-title>
 
-        <!-- The Card -->
-        <v-card
-          id="login-card"
-          elevation="3"
-        >
-          <v-card-text>
-            <!-- The Alert -->
-            <v-alert
-              v-if="errorLoginMessage"
-              type="error"
-            >
-              {{ errorLoginMessage }}
-            </v-alert>
+        <v-card-text>
+          <!-- The Alert -->
+          <v-alert
+            v-if="errorLoginMessage"
+            type="error"
+          >
+            {{ errorLoginMessage }}
+          </v-alert>
           
-            <!-- The Form -->
-            <v-form @submit.prevent="goLogin">
-              <v-text-field
-                v-model="form.username"
-                label="Username"
-                prepend-inner-icon="mdi mdi-account"
-                :error-messages="errors.username"
-              />
+          <!-- The Form -->
+          <v-form @submit.prevent="goLogin">
+            <v-text-field
+              v-model="form.username"
+              label="Username"
+              prepend-inner-icon="mdi mdi-account"
+              :error-messages="errors.username"
+            />
 
-              <v-text-field
-                v-model="form.password"
-                type="password"
-                label="Password"
-                prepend-inner-icon="mdi mdi-lock"
-                :error-messages="errors.password"
-              />
+            <v-text-field
+              v-model="form.password"
+              type="password"
+              label="Password"
+              prepend-inner-icon="mdi mdi-lock"
+              :error-messages="errors.password"
+            />
 
+            <div class="d-flex justify-end">
               <v-btn
-                block
                 dark
                 type="submit"
-                color="grey darken-4"
+                color="grey darken-3"
                 :loading="loading"
                 :class="{'mt-2': errors.password}"
               >
                 <span>Login</span>
                 <i class="mdi mdi-send ml-1" />
               </v-btn>
-            </v-form>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+            </div>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </div>
   </div>
 </template>
 
@@ -76,6 +75,12 @@ export default {
       loading: false,
       errorLoginMessage: null,
     }
+  },
+
+  computed: {
+    appName() {
+      return process.env.VUE_APP_TITLE 
+    },
   },
 
   methods: {
@@ -124,5 +129,20 @@ export default {
 <style lang="scss" scoped>
   #login-card {
     border-radius: 7px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 1024px) {
+    #login-card {
+      max-width: 45%;
+    }
+  }
+
+  @media screen and (min-width: 1564px) {
+    #login-card {
+      max-width: 30%;
+    }
   }
 </style>
