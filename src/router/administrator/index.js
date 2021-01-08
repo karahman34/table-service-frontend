@@ -15,16 +15,6 @@ const routes = [
     component: () => import('@/views/administrator/Home.vue'),
   },
   {
-    path: '/login',
-    name: 'login',
-    meta: {
-      title: 'Login',
-      layout: 'auth',
-      guest: true,
-    },
-    component: () => import('@/views/administrator/Login.vue'),
-  },
-  {
     path: '/foods',
     name: 'foods',
     meta: {

@@ -11,7 +11,6 @@ const routes = [
     name: 'Home',
     meta: {
       auth: true,
-      customer: true,
       permissions: ['food.index'],
     },
     component: Home,
@@ -21,7 +20,6 @@ const routes = [
     name: 'login',
     meta: {
       guest: true,
-      customer: true,
       layout: 'auth',
     },
     component: () => import('@/views/Login.vue'),
@@ -31,7 +29,6 @@ const routes = [
     name: 'search',
     meta: {
       auth: true,
-      customer: true,
       permissions: ['food.index'],
     },
     component: () => import('@/views/Search.vue'),
@@ -41,7 +38,6 @@ const routes = [
     name: 'cart',
     meta: {
       auth: true,
-      customer: true,
     },
     component: () => import('@/views/Carts.vue'),
   },

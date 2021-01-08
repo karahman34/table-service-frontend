@@ -71,6 +71,17 @@
       </template>
 
       <v-list>
+        <!-- Admin Panel -->
+        <v-list-item
+          v-if="isNotCustomer"
+          :to="{name: 'administrator.home'}"
+        >
+          <v-list-item-title class="black--text">
+            <v-icon>mdi mdi-account</v-icon>
+            <span class="ml-2">Admin Panel</span>
+          </v-list-item-title>
+        </v-list-item>
+
         <!-- Set Table -->
         <v-list-item @click="setTableDialog = true">
           <v-list-item-title class="black--text">
@@ -126,6 +137,9 @@ export default {
     },
     tableChannelName() {
       return `table.${this.tableNumber}`
+    },
+    isNotCustomer() {
+      return !this.$auth.user?.roles.includes('customer')
     },
   },
 

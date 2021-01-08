@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   name: 'Sidebar',
 
@@ -77,14 +78,23 @@ export default {
   },
 
   methods: {
+    ...mapMutations('table', {
+      setTableNumber: 'SET_NUMBER',
+    }),
+    ...mapMutations('cart', {
+      clearCart: 'CLEAR',
+    }),
     async logout() {
       try {
         this.$overlay.show()
 
         await this.$auth.logout()
 
+        this.clearCart()
+        this.setTableNumber(null)
+
         this.$router.push({
-          name: 'administrator.login',
+          name: 'login',
         })
       } catch (err) {
         alert('Failed to loggout user.')
